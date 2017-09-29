@@ -8,8 +8,9 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         #first convolutional block
-        self.conv1 = nn.Conv2d(1, 128, kernel_size=3, padding=1)
-        #asymmetric kernel:  self.conv1 = nn.Conv2d(1, 128, kernel_size=(23,3), padding=11)
+        #self.conv1 = nn.Conv2d(1, 128, kernel_size=3, padding=1)
+        #asymmetric kernel:  
+        self.conv1 = nn.Conv2d(1, 128, kernel_size=(23,3), padding=0)
         self.bn1 = nn.BatchNorm2d(128)
         self.relu1 = nn.ReLU()
         #first pooling
