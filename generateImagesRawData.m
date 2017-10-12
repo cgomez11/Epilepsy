@@ -4,7 +4,7 @@ datasetPath = '/hpcfs/home/c.gomez10/inv/Dataset';
 dirDataset = dir(datasetPath);
 load('AllTimes_cut.mat');
 load('regNumber_cut.mat');
-ww = 3;
+ww = 4;
 srate = 256;
 %neg_instances = {};
 % neg_instances(:,:,1) = zeros(23, ww * srate);
@@ -46,7 +46,7 @@ for id = 3:numel(dirDataset) %recorrer pacientes
         %m_SignalsMat = m_SignalsMat(1:23,:);
         s_SRate = 256;
         
-        s_SizeWidthSec = 3;
+        s_SizeWidthSec = 4;
         s_SzeWidthSam = round(s_SizeWidthSec * s_SRate);
         t_startSam = 1;
         t_endSam = s_SzeWidthSam;
