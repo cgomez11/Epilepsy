@@ -42,7 +42,7 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(1000, 1000)
         self.fc3 = nn.Linear(1000, 1000)
         self.relu5 = nn.ReLU()
-        self.fclast = nn.Linear(128, 2) #2 is for two classes
+        self.fclast = nn.Linear(1000, 2) #2 is for two classes
         self.softmax = nn.Softmax()
      
         #self.fc1 = nn.Linear(128*6*6*6, 128)
