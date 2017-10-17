@@ -51,7 +51,7 @@ class Net(nn.Module):
         
     def forward(self, x):
         out = self.pool1(self.relu1(self.bn1(self.conv1(x))))
-        out = self.pool1(self.relu2(self.bn2(self.conv2(out))))
+        out = self.pool2(self.relu2(self.bn2(self.conv2(out))))
         out = self.pool3(self.relu3(self.bn3(self.conv3(out))))  
         out = self.pool4(self.relu4(self.bn4(self.conv4(out))))
         out = self.relu5(self.fc3(self.fc2(self.fc1(out)))) #many fc layers
