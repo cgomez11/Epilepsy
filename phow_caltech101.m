@@ -51,12 +51,12 @@ function phow_caltech101()
 % This file is part of the VLFeat library and is made available under
 % the terms of the BSD license (see the COPYING file).
 
-conf.calDir = '/media/user_home2/cgomez11/Project/Epilepsy/Dataset/Data/' ;
-conf.dataDir = '/media/user_home2/cgomez11/Project/Epilepsy/Dataset/Data/DataW4/' ;
-conf.autoDownloadData = true ;
-conf.numTrain = 15 ;
+conf.calDir = '/media/user_home2/cgomez11/Project/Epilepsy/Dataset/Data/DataW4/SIFT/data' ;
+conf.dataDir = '/media/user_home2/cgomez11/Project/Epilepsy/Dataset/Data/DataW4/SIFT/intermediateFiles' ;
+conf.autoDownloadData = false ; %
+conf.numTrain = 751 ; %
 conf.numTest = 15 ;
-conf.numClasses = 102 ;
+conf.numClasses = 2 ; %
 conf.numWords = 600 ;
 conf.numSpatialX = [2 4] ;
 conf.numSpatialY = [2 4] ;
@@ -70,7 +70,7 @@ conf.svm.solver = 'sdca' ;
 conf.svm.biasMultiplier = 1 ;
 conf.phowOpts = {'Step', 3, 'Geometry', [23,1,1]} ;
 conf.clobber = false ;
-conf.tinyProblem = true ;
+conf.tinyProblem = false ; %
 conf.prefix = 'baseline' ;
 conf.randSeed = 1 ;
 
@@ -118,33 +118,33 @@ vl_twister('state',conf.randSeed) ;
 % --------------------------------------------------------------------
 %                                                           Setup data
 % --------------------------------------------------------------------
-%classes = dir(conf.calDir) ;
-%classes = classes([classes.isdir]) ;
-%classes = {classes(3:conf.numClasses+2).name} ;
-classes = [0,1]; 
-images = load('test_mat2.mat');
-testSetLabels = load('test_label2.mat');
+classes = dir(conf.calDir) ;
+classes = classes([classes.isdir]) ;
+classes = {classes(3:conf.numClasses+2).name} ;
+%%%%%
+% classes = [0,1]; 
+% images = load('test_mat2.mat');
+% testSetLabels = load('test_label2.mat');
 
-[size1, size2, size3] = size(images);
+% [size1, size2, size3] = size(images);
 
 
-imageClass{size3} = [] ;
+% imageClass{size3} = [] ;
 
-for i = 1:size3
+% for i = 1:size3
   
-  imageClass{i} = testSetLabels{i};
+%   imageClass{i} = testSetLabels{i};
 
+% end
+%%%%%
+
+for ci = 1:length(classes)
+ ims = dir(fullfile(conf.calDir, classes{ci}, '*.jpg'))' ;
+ ims = vl_colsubset(ims, conf.numTrain + conf.numTest) ;
+ ims = cellfun(@(x)fullfile(classes{ci},x),{ims.name},'UniformOutput',false) ;
+ images = {images{:}, ims{:}} ;
+ imageClass{end+1} = ci * ones(1,length(ims)) ;
 end
-
-
-
-%for ci = 1:length(classes)
-%  ims = dir(fullfile(conf.calDir, classes{ci}, '*.jpg'))' ;
-%  ims = vl_colsubset(ims, conf.numTrain + conf.numTest) ;
-%  ims = cellfun(@(x)fullfile(classes{ci},x),{ims.name},'UniformOutput',false) ;
-%  images = {images{:}, ims{:}} ;
-%  imageClass{end+1} = ci * ones(1,length(ims)) ;
-%end
 
 selTrain = find(mod(0:length(images)-1, conf.numTrain+conf.numTest) < conf.numTrain) ;
 selTest = setdiff(1:length(images), selTrain) ;
