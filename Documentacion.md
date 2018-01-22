@@ -1,15 +1,15 @@
 ## División de la base de datos: 
 1. Leave one out model (name of file: train_data_exp# + train_label_exp#, # is the patient that was left out)\
   -eval: promediar las curvas PR de cada exp  
-  -importante para evaluar la dificultad de cada paciente.   
-2. 3-fold cross-validation: 3 sets train, val and test, train in two sets and test in one. Execute all possible combinations experiments:
-  --Experiment 1: train w/ train & val; test: test.
-  --Experiment 2: train w/ train & test; test: val.
-  --Experiment 3: train w/ val & test; test: train.
-  Patient distribution in the sets (aleatory + aprox. same number of instances):
-  --Train: 6,21,9,7,4,23,5,8. 24098 instances.
-  --Val: 2,22,20,18,3,10,11,12. 25592 instances.
-  --Test: 16,14,19,17,13,1,24,15. 30156 instances.
+  -importante para evaluar la dificultad de cada paciente.     
+2. 3-fold cross-validation: 3 sets train, val and test, train in two sets and test in one. Execute all possible combinations experiments:  
+  --Experiment 1: train w/ train & val; test: test.  
+  --Experiment 2: train w/ train & test; test: val.  
+  --Experiment 3: train w/ val & test; test: train.  
+  Patient distribution in the sets (aleatory + aprox. same number of instances):  
+  --Train: 6,21,9,7,4,23,5,8. 24098 instances.  
+  --Val: 2,22,20,18,3,10,11,12. 25592 instances.  
+  --Test: 16,14,19,17,13,1,24,15. 30156 instances.  
 
 /home/cgomez11/Project/Epilepsy/Dataset/DenseData
 
