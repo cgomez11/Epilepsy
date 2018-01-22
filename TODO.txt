@@ -17,3 +17,9 @@ Código pendiente.
 
 - Organizar registros de intracraneal: solo se puede hacer modelos por paciente porque no todos tienen electrodos iguales. Probar modelos:
 solo scalp, solo intracraneal y ambos. 
+
+- En DenseNet para registros con duración >1h, guardar predicciones juntas (y probabilidades de clase). 
+
+- Desarrollo interfaz para visualizar los resultados.
+
+- Juntas carpeta de predicciones (target, pred y output) con la carpeta donde quedan los modelos por época. Cambiar rutas en códigos de evaluación. 
