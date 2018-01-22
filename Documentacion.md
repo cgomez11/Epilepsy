@@ -1,4 +1,4 @@
-##División de la base de datos:
+## División de la base de datos: \\
 1. Leave one out model (name of file: train_data_exp# + train_label_exp#, # is the patient that was left out)
   -eval: promediar las curvas PR de cada exp
   -importante para evaluar la dificultad de cada paciente.   
@@ -14,7 +14,7 @@
 /home/cgomez11/Project/Epilepsy/Dataset/DenseData
 
 
-##Contenido de archivos en el servidor
+## Contenido de archivos en el servidor
 1. Dataset: 
 /media/user_home2/EEG/Epilepsy/ 
 -->Epilepsy/patients Aquí están todos los datos originales de cada paciente (señales crudas).
