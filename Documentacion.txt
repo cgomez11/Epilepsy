@@ -3,14 +3,15 @@ Contenido de archivos en el servidor
 /media/user_home2/EEG/Epilepsy/
 
 - Dentro de chbXX:
-chbXX_XX.edf y chbXX_XX.mat (seÒales originales que se usan para test de registros completos)
+chbXX_XX.edf y chbXX_XX.mat (se√±ales originales que se usan para test de registros completos)
 
 - Dentro de chbXX_labels:
-chbXX_XX_labels.mat (etiquetas 1's y 0's).
+chbXX_XX_labels.mat (etiquetas de cada se√±al 1's y 0's, tiempo en que hay crisis).
+Cada 1/4 de segundo hay una etiqueta (64 puntos originales). Para definir si hay crisis se defini√≥ un sobrelapamiento de 70% de crisis en esos 64 puntos.  
 
 2. Datos (con muestreo denso) para redes:
 /home/cgomez11/Project/Epilepsy/Dataset/DenseData/DataW4_025s_Adj/
-- Carpeta DataExp2: particiÛn aleatoria (fija para varios experimentos)
+- Carpeta DataExp2: partici√≥n aleatoria (fija para varios experimentos)
 a partir de ordenamiento de pacientes de menor a mayor instancias positivas y negativas. 3 sets: train, val y test. Finalmente se usaron datos raw .mat
 
 - Carpeta dataNN2: .npy de los .mat dentro de DataExp2
@@ -18,24 +19,24 @@ a partir de ordenamiento de pacientes de menor a mayor instancias positivas y ne
 - Carpeta NewExpPerPatient: instancias para train y sus respectivas etiquetas para hacer un modelo por paciente. 
 
 
-3. CÛdigos manipular seÒales:
+3. C√≥digos manipular se√±ales:
 /home/cgomez11/Project/Epilepsy/
 - AllTimes_cut.mat: celda de celdas: para cada paciente y cada registro muestra tiempo inicial y final de las crisis. Si no tiene crisis, se asigna 0. 
-- regNumber_cut.mat: celda de celdas con nombre de los registros por paciente para cargarlos despuÈs. 
+- regNumber_cut.mat: celda de celdas con nombre de los registros por paciente para cargarlos despu√©s. 
 
 - generateDenseImagesInfo.m: genera instancias muestreando denso (parametro shift) en las crisis y guarda un .mat de instancias positivas (celda de 1x24) y .mat de instancias negativas. 
 
-- splitDataExp2_adj.m: hace la particiÛn aleatoria de los pacientes en los 3 sets seg˙n n˙mero de instancias que tengan. Se remueven outliers por encima y debajo de 3sigmas. Guarda todas las instancias concatenadas en un arreglo 3D y arreglos 3D para los sets de train, val y test con sus respectivas etiquetas (vectores fila). 
+- splitDataExp2_adj.m: hace la partici√≥n aleatoria de los pacientes en los 3 sets seg√∫n n√∫mero de instancias que tengan. Se remueven outliers por encima y debajo de 3sigmas. Guarda todas las instancias concatenadas en un arreglo 3D y arreglos 3D para los sets de train, val y test con sus respectivas etiquetas (vectores fila). 
 
 - split_data_LOO.m: generar los datos de train para los 24 modelos del Leave-one-out model. Guarda instancias de train y etiquetas.   
 
-- generateDenseInstancesPerPatient.m: genera instancias positivas y negativas de registros de pacientes con m·s de N_seizures. Por cada paciente guarda un .mat con train_instances y sus etiquetas.
+- generateDenseInstancesPerPatient.m: genera instancias positivas y negativas de registros de pacientes con m√°s de N_seizures. Por cada paciente guarda un .mat con train_instances y sus etiquetas.
 
-- generateImages2.m: genera instancias de print screen de las seÒales sin muestrear densamente en las crisis. 
+- generateImages2.m: genera instancias de print screen de las se√±ales sin muestrear densamente en las crisis. 
 
 -generateAllRecords.m: generar etiquetas de registros completos de test. 
 
-4. CÛdigos entrenar y evaluar redes:
+4. C√≥digos entrenar y evaluar redes:
 /home/cgomez11/Project/Epilepsy/
 - network_FC1D.py: red base con 3 fully convolutional. 
 
@@ -44,27 +45,27 @@ a partir de ordenamiento de pacientes de menor a mayor instancias positivas y ne
 - densenet_1D.py: arquitectura de DenseNet en 1D. 
 
 3FOLD CROSS VALIDATION
-- train_model_FC1D.py: cÛdigo para entrenar la red definida en network_FC1D.py (o sus modificaciones). Guarda .pth por cada Època y un avg aca y loss de cada Època, tanto en train y test. 
+- train_model_FC1D.py: c√≥digo para entrenar la red definida en network_FC1D.py (o sus modificaciones). Guarda .pth por cada √©poca y un avg aca y loss de cada √©poca, tanto en train y test. 
 
 - train_model_FC1DExpX.py: lo mismo que la anterior para correr otros exps. 
 
 - train_model_densenet.py: lo mismo que train_model_FC1D.py, pero con la arquitectura definida en densenet_1D.py. 
 
 LOO MODEL
-- train_model_LOOEXP.py: cÛdigo para entrenar cada uno de los 24 modelos con la red network_FC1D.py. Guarda .pth por Època y aca y loss en train y test. 
+- train_model_LOOEXP.py: c√≥digo para entrenar cada uno de los 24 modelos con la red network_FC1D.py. Guarda .pth por √©poca y aca y loss en train y test. 
 
-- train_model_LOOEXP_noval.py: como la anterior, pero no hace nada de evaluaciÛn. 
+- train_model_LOOEXP_noval.py: como la anterior, pero no hace nada de evaluaci√≥n. 
 
 - train_model_LOOEXP_noval_densenet.py: lo mismo que train_model_LOOEXP_noval.py pero con la arquitectura de DenseNet. 
 
 EVALUACION:
-Todo lo que diga output es que guarda las probabilidades de clase de cada predicciÛn. Los que dicen multi es porque evaluan en 3FCV. 
+Todo lo que diga output es que guarda las probabilidades de clase de cada predicci√≥n. Los que dicen multi es porque evaluan en 3FCV. 
 - eval_main.py:
 - eval_main_output.py: prob de clase para LOO
 - eval_main_multi.py
 - eval_main_multi_output.py: prob de clase para 3FCV
 
-** Los registros que duran m·s de una hora no se pueden evaluar de una con DenseNet, hay que partirlos (cÛdigos que digan large). 
+** Los registros que duran m√°s de una hora no se pueden evaluar de una con DenseNet, hay que partirlos (c√≥digos que digan large). 
 - eval_main_densenet_large.py:
 - eval_main_output_densenet_large.py: prob para LOO
 - eval_main_multi_densenet_large.py: 
@@ -84,11 +85,11 @@ Todo lo que diga output es que guarda las probabilidades de clase de cada predic
 
 - Carpeta LOO_densenet_res: carpeta por paciente chbXX con target, pred y output de los registros de test.
  
-6. CÛdigos mÈtricas de evaluaciÛn: 
+6. C√≥digos m√©tricas de evaluaci√≥n: 
 /home/cgomez11/Project/Epilepsy/Checkpoints/DenseData/DataW4_025s_adj/prueba3
-- PR_curve_3FCV_python.py: construir curva PR (a partir de predicciones y umbrales) con funciones de python y calcular F-measure y AP. Se calcula para cada paciente en el set de test y se reporta un promedio global (fMax_global) y un txt donde est· por paciente. 
+- PR_curve_3FCV_python.py: construir curva PR (a partir de predicciones y umbrales) con funciones de python y calcular F-measure y AP. Se calcula para cada paciente en el set de test y se reporta un promedio global (fMax_global) y un txt donde est√° por paciente. 
 
 /home/cgomez11/Project/Epilepsy/Checkpoints/DenseData/DataW4_025s_adj/LOO_res
 - PR_curve_python.py: curva PR con funciones de Python para cada paciente, se extrae Fmax y AP y se promedia el global. 
 
-*Aplica para densenet en 3FCV y LOO, y las modificaciones de la red original que tambien est·n al nivel de prueba3. 
+*Aplica para densenet en 3FCV y LOO, y las modificaciones de la red original que tambien est√°n al nivel de prueba3. 
