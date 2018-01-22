@@ -1,26 +1,29 @@
-División de la base de datos:
+##División de la base de datos:
 1. Leave one out model (name of file: train_data_exp# + train_label_exp#, # is the patient that was left out)
-  -eval: promediar las curvas PR de cada exp 
+  -eval: promediar las curvas PR de cada exp
+  -importante para evaluar la dificultad de cada paciente.   
 2. 3-fold cross-validation: 3 sets train, val and test, train in two sets and test in one. Execute all possible combinations experiments:
   --Experiment 1: train w/ train & val; test: test.
   --Experiment 2: train w/ train & test; test: val.
   --Experiment 3: train w/ val & test; test: train.
   Patient distribution in the sets (aleatory + aprox. same number of instances):
-  --Train: 6,21,9,7,4,23,5,8.
-  --Val: 2,22,20,18,3,10,11,12.
-  --Test:16,14,19,17,13,1,24,15.
+  --Train: 6,21,9,7,4,23,5,8. 24098 instances.
+  --Val: 2,22,20,18,3,10,11,12. 25592 instances.
+  --Test:16,14,19,17,13,1,24,15. 30156 instances.
+
+/home/cgomez11/Project/Epilepsy/Dataset/DenseData
 
 
-Contenido de archivos en el servidor
+##Contenido de archivos en el servidor
 1. Dataset: 
 /media/user_home2/EEG/Epilepsy/ 
-Aquí están todos los datos originales de cada paciente (señales crudas).
--->/patients
--->/data
-   -->/DenseData cada 1/8s nueva ventana de crisis (muestreo denso)
+-->Epilepsy/patients Aquí están todos los datos originales de cada paciente (señales crudas).
+-->Epilepsy/data
+   -->data/DenseData cada 1/8s nueva ventana de crisis (muestreo denso)
 
 - Dentro de chbXX:
 chbXX_XX.edf y chbXX_XX.mat (señales originales que se usan para test de registros completos)
+  --Para leer los .mat en python usar la función readDenseData.py (/home/cgomez11/Epilepsy)(no es necesario para el entrenamiento, está incluído en la función de entrenar).
 
 - Dentro de chbXX_labels:
 chbXX_XX_labels.mat (etiquetas de cada señal 1's y 0's, tiempo en que hay crisis).
