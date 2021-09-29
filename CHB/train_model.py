@@ -19,8 +19,8 @@ from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import LambdaLR, StepLR, MultiStepLR, ExponentialLR, ReduceLROnPlateau
 
 
-from  network_FC1D import Net
-# from network_FC1D_50 import Net
+from  model.network_FC1D import Net
+# from model.network_FC1D_50 import Net
 
 parser = argparse.ArgumentParser(description='PyTorch Epilepsy')
 parser.add_argument('--batch_size', type=int, default=16, metavar='N',
